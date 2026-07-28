@@ -159,7 +159,11 @@ code, kbd {
   background: rgba(61, 220, 132, 0.06);
   white-space: nowrap;
   flex-shrink: 0;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.15s ease, border-color 0.15s ease;
 }
+.status-badge:hover { color: var(--accent-pink); border-color: var(--accent-pink); text-decoration: none; }
 .status-badge .pulse {
   width: 6px; height: 6px; border-radius: 50%;
   background: var(--status-color); box-shadow: 0 0 8px var(--status-color);
@@ -195,6 +199,10 @@ code, kbd {
   border-radius: 4px;
 }
 .plain-link:hover, .plain-link.active { background: rgba(255,92,174,0.08); color: var(--accent-pink); text-decoration: none; }
+
+/* Тонкий разделитель между логическими группами ссылок в сайдбаре — только визуальное деление,
+   без текстовых заголовков групп. */
+.tree hr { border: none; border-top: 1px solid var(--border); opacity: 0.6; margin: 8px 10px; }
 
 .tree-top { margin-bottom: 2px; }
 .tree-top > summary {
@@ -308,6 +316,9 @@ h2.section-title:first-of-type { margin-top: 0; }
 h3.sub-title { font-size: 15.5px; font-weight: 600; margin: 22px 0 10px; }
 p.section-lead { color: var(--text-muted); margin-bottom: 20px; font-size: 14px; }
 .content-inner p { margin-bottom: 12px; }
+/* Страница "Работа бота" — обычная проза, а не плотный справочник команд, поэтому текст здесь
+   должен визуально "дышать" сильнее, чем стандартный плотный интервал .content-inner p. */
+.prose-page p { margin-bottom: 20px; line-height: 1.75; }
 .content-inner ol, .content-inner ul { margin: 0 0 16px 22px; }
 .content-inner li { margin-bottom: 8px; }
 
@@ -352,6 +363,7 @@ p.section-lead { color: var(--text-muted); margin-bottom: 20px; font-size: 14px;
 .changelog-date { font-family: var(--font-mono); font-size: 13px; font-weight: 700; color: var(--accent-pink); margin-bottom: 8px; }
 .changelog-entry ul { margin: 8px 0 0 20px; }
 .changelog-entry li { margin-bottom: 6px; font-size: 14.5px; }
+
 
 .page-nav {
   margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--border);
@@ -406,7 +418,7 @@ p.section-lead { color: var(--text-muted); margin-bottom: 20px; font-size: 14px;
   <div class="top-bar-right">
     <a class="top-bar-auth" href="#changelog" data-nav="changelog">Список изменений</a>
     <a class="top-bar-auth" href="#auth" data-nav="auth">Авторизация</a>
-    <div class="status-badge"><span class="pulse"></span><span class="status-text">ОНЛАЙН · ВСЁ РАБОТАЕТ</span></div>
+    <a class="status-badge" href="#status" data-nav="status"><span class="pulse"></span><span class="status-text">ОНЛАЙН · ВСЁ РАБОТАЕТ</span></a>
     <button class="theme-btn" id="themeBtn" title="Переключить тему" aria-label="Переключить тему">🌙</button>
   </div>
 </header>
@@ -535,9 +547,12 @@ p.section-lead { color: var(--text-muted); margin-bottom: 20px; font-size: 14px;
       </details>
 
       <a class="plain-link" href="#overlay" data-nav="overlay">Оверлей и панель</a>
+      <hr>
       <a class="plain-link" href="#howto" data-nav="howto">Как подключить?</a>
       <a class="plain-link" href="#auth" data-nav="auth">Авторизация</a>
       <a class="plain-link" href="#general" data-nav="general">Общее</a>
+      <hr>
+      <a class="plain-link" href="#status" data-nav="status">Работа бота</a>
       <a class="plain-link" href="#changelog" data-nav="changelog">Список изменений</a>
     </div>
 
@@ -1057,6 +1072,25 @@ p.section-lead { color: var(--text-muted); margin-bottom: 20px; font-size: 14px;
         <div class="page-nav">
           <a href="#auth" data-nav="auth">← Авторизация</a>
           <span class="spacer"></span>
+          <a href="#status" data-nav="status">Работа бота →</a>
+        </div>
+      </section>
+
+      <!-- ===================== СПИСОК ИЗМЕНЕНИЙ ===================== -->
+      <!-- ===================== СТАТУС БОТА (полностью отдельная страница) ===================== -->
+      <section class="page prose-page" id="status">
+        <h1 class="page-title">Работа бота</h1>
+        <p class="page-lead">Коротко о том, что происходит, если RofloBot вдруг замолчал в чате.</p>
+
+        <p>RofloBot и все его модули — модерация, озвучка чата, оверлей, таймеры — работают круглосуточно, 24/7.</p>
+        <p>Если бот не отвечает в чате пару минут — не переживайте: скорее всего, идут технические работы, обновление или перезагрузка сервера. Обычно это ненадолго.</p>
+        <p>Бот сейчас находится в стадии активной разработки. Поэтому, если бот молчит подозрительно долго, либо вы заметили какой-то баг, ошибку или зависание — пожалуйста, обязательно дайте нам знать! Это поможет нам быстрее всё починить.</p>
+
+        <p><a class="home-btn filled" href="https://t.me/shaldzy" target="_blank" rel="noopener noreferrer">Сообщить в Telegram →</a></p>
+
+        <div class="page-nav">
+          <a href="#general" data-nav="general">← Общее</a>
+          <span class="spacer"></span>
           <a href="#changelog" data-nav="changelog">Список изменений →</a>
         </div>
       </section>
@@ -1084,7 +1118,7 @@ p.section-lead { color: var(--text-muted); margin-bottom: 20px; font-size: 14px;
         </div>
 
         <div class="page-nav">
-          <a href="#general" data-nav="general">← Общее</a>
+          <a href="#status" data-nav="status">← Работа бота</a>
           <span class="spacer"></span>
           <a href="#home" data-nav="home">Главная →</a>
         </div>
