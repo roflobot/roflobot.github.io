@@ -6,16 +6,10 @@
   --code-bg: #34343f;
   --warn-bg: #2e2a1a;
   --warn-border: #d9a441;
-  /* Своп по прямому запросу: было зелёным — стало розовым, и наоборот. Роль переменной
-     (основной / тёмный вариант для рамок / светлый вариант для hover) сохранена — просто
-     перекрашена в другое семейство цветов, а не переставлена местами буквально (что дало
-     бы, например, светлый оттенок там, где ожидается тёмная рамка). */
   --accent-pink: #ff5cae;
   --accent-pink-dim: #8f2a5c;
   --accent-green: #3ddc84;
   --accent-green-hover: #6ee8a8;
-  /* Плашка статуса — ИСКЛЮЧЕНИЕ из свопа, логический цвет "онлайн" всегда зелёный,
-     независимо от того, что происходит с остальной палитрой. */
   --status-color: #3ddc84;
   --status-color-dim: #1f6b45;
   --text-primary: #e4e4e9;
@@ -61,8 +55,6 @@ body {
 a { color: var(--accent-green); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
-/* Выделение команд/фильтров/параметров в тексте — заметно отличается и от фона страницы,
-   и от серых блоков "Примечание" (--code-bg отдельная переменная от --note-bg специально). */
 code, kbd {
   font-family: var(--font-mono);
   font-size: 0.88em;
@@ -73,7 +65,7 @@ code, kbd {
   color: var(--accent-pink);
 }
 
-/* --- Кастомный скроллбар — фон под тему, ползунок фирменным розовым --- */
+/* --- Кастомный скроллбар --- */
 ::-webkit-scrollbar { width: 11px; height: 11px; }
 ::-webkit-scrollbar-track { background: var(--bg-sidebar); }
 ::-webkit-scrollbar-thumb { background: var(--accent-green); border-radius: 6px; border: 2px solid var(--bg-sidebar); }
@@ -139,11 +131,6 @@ code, kbd {
 }
 .theme-btn:hover { border-color: var(--accent-pink-dim); }
 
-/* Плашка статуса — пульсация чистым CSS, без JS. Закреплена в шапке, видна всегда.
-   Использует ОТДЕЛЬНУЮ переменную --status-color (всегда зелёный, "онлайн" — логический
-   цвет статуса), не --accent-pink/--accent-green — те две меняются местами по цветовым правкам
-   дизайна, а исключение для этой конкретной плашки должно быть гарантировано структурно,
-   а не полагаться на то, что при следующем свопе кто-то не забудет её пропустить. */
 .status-badge {
   display: inline-flex; align-items: center; gap: 7px;
   font-family: var(--font-mono); font-size: 11.5px; color: var(--status-color);
@@ -193,8 +180,6 @@ code, kbd {
 }
 .plain-link:hover, .plain-link.active { background: rgba(255,92,174,0.08); color: var(--accent-pink); text-decoration: none; }
 
-/* Тонкий разделитель между логическими группами ссылок в сайдбаре — только визуальное деление,
-   без текстовых заголовков групп. */
 .tree hr { border: none; border-top: 1px solid var(--border); opacity: 0.6; margin: 8px 10px; }
 
 .tree-top { margin-bottom: 2px; }
@@ -270,15 +255,13 @@ main { flex: 1; min-width: 0; }
 .home-hero .brand-sub { margin-top: 10px; font-size: 17px; color: var(--text-muted); }
 .home-hero .home-actions { margin-top: 32px; display: flex; gap: 14px; justify-content: center; }
 .home-btn {
-  display: inline-block; padding: 12px 28px; border-radius: 10px; border: none;
-  font-weight: 600; font-size: 14.5px; text-align: center; cursor: pointer;
-  transition: filter 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  padding: 11px 26px; border-radius: 8px; font-weight: 600; font-size: 14.5px;
+  cursor: pointer; border: 1px solid var(--accent-pink);
 }
 .home-btn.filled { background: var(--accent-pink); color: var(--bg); }
-.home-btn.filled:hover { filter: brightness(1.1); box-shadow: 0 6px 18px color-mix(in srgb, var(--accent-pink) 35%, transparent); text-decoration: none; }
-.home-btn.outline { background: color-mix(in srgb, var(--accent-pink) 10%, transparent); color: var(--accent-pink); }
-.home-btn.outline:hover { background: color-mix(in srgb, var(--accent-pink) 18%, transparent); box-shadow: 0 4px 14px color-mix(in srgb, var(--accent-pink) 20%, transparent); text-decoration: none; }
-.home-btn:focus-visible { outline: 2px solid var(--accent-pink); outline-offset: 2px; }
+.home-btn.filled:hover { opacity: 0.88; text-decoration: none; }
+.home-btn.outline { background: none; color: var(--accent-pink); }
+.home-btn.outline:hover { background: rgba(255,92,174,0.08); text-decoration: none; }
 
 .home-highlights {
   max-width: 760px; margin: 50px auto 0; padding-top: 30px; border-top: 1px solid var(--border);
@@ -296,9 +279,6 @@ main { flex: 1; min-width: 0; }
 .toc li { font-size: 14px; margin-bottom: 6px; }
 .toc li a { color: var(--accent-green); }
 
-/* Глобально, для ЛЮБОГО элемента с id — единая точка правды вместо повторения этого
-   правила в каждом отдельном классе, который может стать целью якорной ссылки. Без этого
-   контент уезжает под закреплённую шапку при переходе по ссылке. */
 [id] { scroll-margin-top: calc(var(--topbar-h) + 16px); }
 
 h2.section-title {
@@ -310,8 +290,6 @@ h2.section-title:first-of-type { margin-top: 0; }
 h3.sub-title { font-size: 15.5px; font-weight: 600; margin: 22px 0 10px; }
 p.section-lead { color: var(--text-muted); margin-bottom: 20px; font-size: 14px; }
 .content-inner p { margin-bottom: 12px; }
-/* Страница "Работа бота" — обычная проза, а не плотный справочник команд, поэтому текст здесь
-   должен визуально "дышать" сильнее, чем стандартный плотный интервал .content-inner p. */
 .prose-page p { margin-bottom: 20px; line-height: 1.75; }
 .content-inner ol, .content-inner ul { margin: 0 0 16px 22px; }
 .content-inner li { margin-bottom: 8px; }
@@ -353,7 +331,7 @@ p.section-lead { color: var(--text-muted); margin-bottom: 20px; font-size: 14px;
 .duration-table code { background: none; border: none; padding: 0; color: var(--accent-pink); }
 
 .changelog-entry { margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
-.changelog-entry:last-of-type { border-bottom: none; padding-bottom: 0; }
+.changelog-entry:last-of-type { border-bottom: none; }
 .changelog-date { font-family: var(--font-mono); font-size: 13px; font-weight: 700; color: var(--accent-pink); margin-bottom: 8px; }
 .changelog-entry ul { margin: 8px 0 0 20px; }
 .changelog-entry li { margin-bottom: 6px; font-size: 14.5px; }
@@ -363,17 +341,7 @@ p.section-lead { color: var(--text-muted); margin-bottom: 20px; font-size: 14px;
   margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--border);
   display: flex; justify-content: space-between; font-size: 14px;
 }
-.page-nav a {
-  display: inline-block; padding: 10px 20px; border-radius: 10px; border: none;
-  background: color-mix(in srgb, var(--accent-pink) 10%, transparent);
-  color: var(--accent-pink); font-weight: 600; text-align: center;
-  transition: background-color 0.2s ease, box-shadow 0.2s ease;
-}
-.page-nav a:hover {
-  background: color-mix(in srgb, var(--accent-pink) 18%, transparent);
-  box-shadow: 0 4px 14px color-mix(in srgb, var(--accent-pink) 20%, transparent);
-  text-decoration: none;
-}
+.page-nav a { color: var(--accent-pink); font-weight: 600; }
 .page-nav .spacer { flex: 1; }
 
 @media (max-width: 920px) {
