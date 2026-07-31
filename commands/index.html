@@ -105,6 +105,7 @@
               <li><a href="#cmd-keyword">!keyword</a></li>
               <li><a href="#cmd-rm">!rm</a></li>
               <li><a href="#cmd-ra">!ra</a></li>
+              <li><a href="#cmd-counter">!counter</a></li>
             </ul>
           </details>
 
@@ -126,13 +127,6 @@
             </ul>
           </details>
 
-          <details class="tree-section" data-cat="cat-counters">
-            <summary>Счётчики</summary>
-            <ul class="tree-cmds">
-              <li><a href="#cmd-counter">!counter (счётчики)</a></li>
-            </ul>
-          </details>
-
           <details class="tree-section" data-cat="cat-fun">
             <summary>Развлечения</summary>
             <ul class="tree-cmds">
@@ -140,7 +134,7 @@
               <li><a href="#cmd-vanish">!vanish</a></li>
               <li><a href="#cmd-followage">!followage</a></li>
               <li><a href="#cmd-accountage">!accountage</a></li>
-              <li><a href="#cmd-giveaway">!giveaway (розыгрыши)</a></li>
+              <li><a href="#cmd-giveaway">!giveaway</a></li>
             </ul>
           </details>
         </div>
@@ -168,6 +162,10 @@
         <h1 class="page-title">Команды</h1>
         <p class="page-lead">Полный список команд бота по категориям.</p>
 
+        <div class="note">
+          <strong>Примечание:</strong> У большинства команд есть небольшая подсказка по использованию, достаточно отправить в чат команду без каких-либо параметров.
+        </div>
+
         <div class="toc">
           <div class="toc-title">Содержание</div>
           <ul>
@@ -179,13 +177,8 @@
             <li><a href="#cat-ecmd">Взаимодействие с чатом</a></li>
             <li><a href="#cat-timers">Таймеры</a></li>
             <li><a href="#cat-info">Трансляция</a></li>
-            <li><a href="#cat-counters">Счётчики</a></li>
             <li><a href="#cat-fun">Развлечения</a></li>
           </ul>
-        </div>
-
-        <div class="note">
-          <strong>Примечание:</strong> У большинства команд есть небольшая подсказка по использованию, достаточно отправить в чат команду без каких-либо параметров.
         </div>
 
         <div class="note">
@@ -418,6 +411,13 @@
           <code class="syntax">!ra [число] [текст]</code>
         </div>
 
+        <div class="cmd" id="cmd-counter">
+          <span class="cmd-name">!counter</span>
+          <p>Именной счётчик для чего угодно — смертей в игре, неудачных попыток и так далее.</p>
+          <code class="syntax">!counter [add|del|+1|-1|show|reset|list] [имя]</code>
+          <p><span class="cmd-name">!resetcounters</span> — Сбрасывает текущее значение счётчика до нуля.</p>
+        </div>
+
         <h2 class="section-title" id="cat-timers">Таймеры</h2>
         <p class="section-lead">Автоматические повторяющиеся сообщения — напоминания о соцсетях, донатах и правилах чата. Срабатывают только пока стрим в эфире.</p>
 
@@ -474,16 +474,6 @@
           Опросы — функция самого Twitch, доступная только каналам со статусом <strong>Компаньон</strong> или <strong>Партнёр</strong>. На обычном канале <code>!poll</code> вернёт ошибку от Twitch — это ограничение платформы, не бота.
         </div>
 
-        <h2 class="section-title" id="cat-counters">Счётчики</h2>
-
-        <div class="cmd" id="cmd-counter">
-          <span class="cmd-name">!counter</span>
-          <p>Именной счётчик для чего угодно — смертей в игре, неудачных попыток и так далее.</p>
-          <code class="syntax">!counter [add|del|+1|-1|show|reset|list] [имя]</code>
-          <h3 class="sub-title">Сброс счётчиков:</h3>
-          <code class="syntax">!resetcounters</code>
-        </div>
-
         <h2 class="section-title" id="cat-fun">Развлечения</h2>
 
         <div class="cmd" id="cmd-snejok">
@@ -515,12 +505,10 @@
 
         <div class="cmd" id="cmd-giveaway">
           <span class="cmd-name">!giveaway</span>
-          <p>Запускает приём заявок на розыгрыш по ключевому слову.</p>
+          <p>Запускает приём заявок на розыгрыш. Зрители пишут ключевое слово в чат, чтобы стать участниками.</p>
           <code class="syntax">!giveaway [ключевое слово]</code>
-          <h3 class="sub-title">Определить победителя:</h3>
-          <code class="syntax">!roll</code>
-          <h3 class="sub-title">Завершить розыгрыш:</h3>
-          <code class="syntax">!stopgiveaway</code>
+          <p><span class="cmd-name">!roll</span> — Выбирает случайного победителя из числа тех, кто уже принял участие. (Можно нажимать несколько раз).</p>
+          <p><span class="cmd-name">!stopgiveaway</span> — Останавливает приём новых заявок. Текущий список участников сохраняется для выбора победителей.</p>
         </div>
 
 
