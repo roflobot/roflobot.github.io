@@ -8,54 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
-<style>
-  /* Состояния плашки статуса бэкенда (.status-badge из шапки) — только цвет/фон по data-state,
-     форму, паддинги и шрифт не трогаем: их уже задаёт css/style.css, которого у меня нет под
-     рукой, так что расширяю существующий класс, а не переопределяю его с нуля. Логика,
-     которая проставляет data-state и текст — в <script> перед закрывающим </body>. */
-  .status-badge[data-state="checking"] {
-    background: rgba(161, 161, 170, 0.14);
-    border-color: rgba(161, 161, 170, 0.4);
-    color: #a1a1aa;
-  }
-  .status-badge[data-state="checking"] .pulse {
-    background: #a1a1aa;
-    box-shadow: none;
-    animation: none; /* статус ещё не известен — моргать нечем, это не "живое" состояние */
-  }
-
-  .status-badge[data-state="online"] {
-    background: rgba(34, 197, 94, 0.14);
-    border-color: rgba(34, 197, 94, 0.4);
-    color: #22c55e;
-  }
-  .status-badge[data-state="online"] .pulse {
-    background: #22c55e;
-    box-shadow: 0 0 6px rgba(34, 197, 94, 0.7);
-  }
-
-  .status-badge[data-state="maintenance"] {
-    background: rgba(245, 158, 11, 0.14);
-    border-color: rgba(245, 158, 11, 0.4);
-    color: #f59e0b;
-  }
-  .status-badge[data-state="maintenance"] .pulse {
-    background: #f59e0b;
-    box-shadow: 0 0 6px rgba(245, 158, 11, 0.7);
-  }
-
-  /* Красный — тот же #f43f5e, что уже используется для ошибок в authServer.js (страницы
-     /callback), чтобы "авария" на сайте и в служебных страницах бота читалась одним цветом. */
-  .status-badge[data-state="down"] {
-    background: rgba(244, 63, 94, 0.14);
-    border-color: rgba(244, 63, 94, 0.4);
-    color: #f43f5e;
-  }
-  .status-badge[data-state="down"] .pulse {
-    background: #f43f5e;
-    box-shadow: 0 0 6px rgba(244, 63, 94, 0.7);
-  }
-</style>
+<link rel="stylesheet" href="/css/status.css">
 </head>
 <body>
 
@@ -226,63 +179,6 @@
 </div>
 
 <script src="js/script.js"></script>
-<script>
-// Опрос состояния бэкенда бота (см. GET /api/status в authServer.js) — красит плашку
-// .status-badge в шапке. Числа/правила: 0 ошибок подряд — зелёная "онлайн", 1 ошибка подряд —
-// жёлтая "обслуживание" (не паника, бот мог просто уйти в рестарт), 2+ ошибок подряд —
-// красная "неполадки" (обрыв уже не похож на короткий рестарт).
-(function () {
-    'use strict';
-
-    var STATUS_URL = 'https://roflo-api.ru/api/status';
-    var CHECK_INTERVAL_MS = 30000; // раз в 30 секунд, как договорились
-    var FETCH_TIMEOUT_MS = 8000;   // страховка: не даём одному зависшему запросу растянуться
-                                    // за пределы следующего тика и породить параллельные проверки
-
-    var failCount = 0;
-
-    var badge = document.getElementById('statusBadge');
-    var badgeText = badge ? badge.querySelector('.status-text') : null;
-
-    // Единая точка, которая меняет вид плашки — data-state двигает цвет (см. <style> в head),
-    // текст выставляется явно, без завязки на CSS ::before/content (проще читать в devtools).
-    function renderStatus(state, text) {
-        if (!badge || !badgeText) return; // разметку могли переименовать — молча не роняем скрипт
-        badge.dataset.state = state;
-        badgeText.textContent = text;
-    }
-
-    function checkStatus() {
-        var controller = new AbortController();
-        var timeoutId = setTimeout(function () { controller.abort(); }, FETCH_TIMEOUT_MS);
-
-        fetch(STATUS_URL, { signal: controller.signal, cache: 'no-store' })
-            .then(function (response) {
-                clearTimeout(timeoutId);
-                // response.ok — единственный надёжный признак живого бэкенда: fetch НЕ бросает
-                // исключение на 4xx/5xx (например 502 от nginx, если сам процесс бота упал,
-                // а прокси перед ним ещё жив), поэтому статус-код проверяем отдельно.
-                if (!response.ok) throw new Error('HTTP ' + response.status);
-
-                failCount = 0;
-                renderStatus('online', 'ОНЛАЙН • ВСЁ РАБОТАЕТ');
-            })
-            .catch(function () {
-                clearTimeout(timeoutId);
-                failCount += 1;
-
-                if (failCount === 1) {
-                    renderStatus('maintenance', 'ОФФЛАЙН • ОБСЛУЖИВАНИЕ');
-                } else {
-                    // failCount >= 2
-                    renderStatus('down', 'ОФФЛАЙН • ТЕХНИЧЕСКИЕ НЕПОЛАДКИ');
-                }
-            });
-    }
-
-    checkStatus(); // сразу при загрузке страницы — не заставляем посетителя ждать первые 30с
-    setInterval(checkStatus, CHECK_INTERVAL_MS);
-})();
-</script>
+<script src="/js/status.js"></script>
 </body>
 </html>
