@@ -3,12 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RofloBot - Список изменений</title>
+<title>RofloBot - Работа бота</title>
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/style.css">
-<link rel="stylesheet" href="../css/status.css">
 </head>
 <body>
 
@@ -26,9 +25,9 @@
     </nav>
   </div>
   <div class="top-bar-right">
-    <a class="top-bar-auth active" href="/changelog">Список изменений</a>
+    <a class="top-bar-auth" href="/changelog">Список изменений</a>
     <a class="top-bar-auth" href="/auth">Авторизация</a>
-    <a class="status-badge" href="/status" id="statusBadge" data-state="checking"><span class="pulse"></span><span class="status-text">ПРОВЕРКА СТАТУСА…</span></a>
+    <a class="status-badge" href="/status"><span class="pulse"></span><span class="status-text">ОНЛАЙН · ВСЁ РАБОТАЕТ</span></a>
     <button class="theme-btn" id="themeBtn" title="Переключить тему" aria-label="Переключить тему">🌙</button>
   </div>
 </header>
@@ -162,8 +161,8 @@
       <a class="plain-link" href="/howto">Как подключить?</a>
       <a class="plain-link" href="/auth">Авторизация</a>
       <hr>
-      <a class="plain-link" href="/status">Работа бота</a>
-      <a class="plain-link active" href="/changelog">Список изменений</a>
+      <a class="plain-link active" href="/status">Работа бота</a>
+      <a class="plain-link" href="/changelog">Список изменений</a>
     </div>
 
     <div class="sidebar-footer">
@@ -173,32 +172,21 @@
   </aside>
 
   <main>
-    <div class="content-inner">
+    <div class="content-inner prose-page">
 
-        <h1 class="page-title">Список изменений</h1>
-        <p class="page-lead">История обновлений функционала бота — что нового появляется и что меняется.</p>
+        <h1 class="page-title">Работа бота</h1>
+        <p class="page-lead">Коротко о том, что происходит, если RofloBot вдруг замолчал в чате.</p>
 
-        <div class="changelog-entry">
-          <div class="changelog-date">28 июля 2026</div>
-          <ul>
-            <li>Добавлена веб-панель управления оверлеем</li>
-            <li>Переработана система TTS — настройки роли, лимита длины и субтитров теперь подкоманды <code>!tts</code></li>
-            <li>Добавлена команда <code>!poll</code> для запуска опросов Twitch</li>
-          </ul>
-        </div>
+        <p>RofloBot и все его модули — модерация, озвучка чата, оверлей, таймеры — работают круглосуточно, 24/7.</p>
+        <p>Если бот не отвечает в чате пару минут — не переживайте: скорее всего, идут технические работы, обновление или перезагрузка сервера. Обычно это ненадолго.</p>
+        <p>Бот сейчас находится в стадии активной разработки. Поэтому, если бот молчит подозрительно долго, либо вы заметили какой-то баг, ошибку или зависание — пожалуйста, обязательно дайте нам знать! Это поможет нам быстрее всё починить.</p>
 
-        <div class="changelog-entry">
-          <div class="changelog-date">28 июля 2026</div>
-          <ul>
-            <li>Добавлена команда <code>!roflobotdisconnect</code> для самостоятельного отключения бота от канала</li>
-            <li>Убрана система цитат и озвучка ВКонтакте</li>
-          </ul>
-        </div>
+        <p><a class="home-btn filled" href="https://t.me/shaldzy" target="_blank" rel="noopener noreferrer">Сообщить в Telegram</a></p>
 
         <div class="page-nav">
-          <a href="/status">← Работа бота</a>
+          <a href="/auth">← Авторизация</a>
           <span class="spacer"></span>
-          <a href="/">Главная →</a>
+          <a href="/changelog">Список изменений →</a>
         </div>
 
     </div>
@@ -206,6 +194,5 @@
 </div>
 
 <script src="../js/script.js"></script>
-<script src="../js/status.js"></script>
 </body>
 </html>

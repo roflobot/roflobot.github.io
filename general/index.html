@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/status.css">
 </head>
 <body>
 
@@ -27,7 +28,7 @@
   <div class="top-bar-right">
     <a class="top-bar-auth" href="/changelog">Список изменений</a>
     <a class="top-bar-auth" href="/auth">Авторизация</a>
-    <a class="status-badge" href="/status"><span class="pulse"></span><span class="status-text">ОНЛАЙН · ВСЁ РАБОТАЕТ</span></a>
+    <a class="status-badge" href="/status" id="statusBadge" data-state="checking"><span class="pulse"></span><span class="status-text">ПРОВЕРКА СТАТУСА…</span></a>
     <button class="theme-btn" id="themeBtn" title="Переключить тему" aria-label="Переключить тему">🌙</button>
   </div>
 </header>
@@ -199,5 +200,6 @@
 </div>
 
 <script src="../js/script.js"></script>
+<script src="../js/status.js"></script>
 </body>
 </html>

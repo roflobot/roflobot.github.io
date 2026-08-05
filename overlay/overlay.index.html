@@ -3,12 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RofloBot - Список изменений</title>
+<title>RofloBot - Оверлей и панель</title>
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/style.css">
-<link rel="stylesheet" href="../css/status.css">
 </head>
 <body>
 
@@ -20,15 +19,15 @@
     <a class="top-bar-brand" href="/">RofloBot</a>
     <nav class="top-bar-nav">
       <a href="/commands">Команды</a>
-      <a href="/overlay">Оверлей и панель</a>
+      <a href="/overlay" class="active">Оверлей и панель</a>
       <a href="/general">Общее</a>
       <a href="/howto">Как подключить?</a>
     </nav>
   </div>
   <div class="top-bar-right">
-    <a class="top-bar-auth active" href="/changelog">Список изменений</a>
+    <a class="top-bar-auth" href="/changelog">Список изменений</a>
     <a class="top-bar-auth" href="/auth">Авторизация</a>
-    <a class="status-badge" href="/status" id="statusBadge" data-state="checking"><span class="pulse"></span><span class="status-text">ПРОВЕРКА СТАТУСА…</span></a>
+    <a class="status-badge" href="/status"><span class="pulse"></span><span class="status-text">ОНЛАЙН · ВСЁ РАБОТАЕТ</span></a>
     <button class="theme-btn" id="themeBtn" title="Переключить тему" aria-label="Переключить тему">🌙</button>
   </div>
 </header>
@@ -156,14 +155,14 @@
         </div>
       </details>
 
-      <a class="plain-link" href="/overlay">Оверлей и панель</a>
+      <a class="plain-link active" href="/overlay">Оверлей и панель</a>
       <hr>
       <a class="plain-link" href="/general">Общее</a>
       <a class="plain-link" href="/howto">Как подключить?</a>
       <a class="plain-link" href="/auth">Авторизация</a>
       <hr>
       <a class="plain-link" href="/status">Работа бота</a>
-      <a class="plain-link active" href="/changelog">Список изменений</a>
+      <a class="plain-link" href="/changelog">Список изменений</a>
     </div>
 
     <div class="sidebar-footer">
@@ -175,30 +174,43 @@
   <main>
     <div class="content-inner">
 
-        <h1 class="page-title">Список изменений</h1>
-        <p class="page-lead">История обновлений функционала бота — что нового появляется и что меняется.</p>
+        <h1 class="page-title">Оверлей и панель</h1>
+        <p class="page-lead">Панель управления — место, где стример и назначенные модераторы расставляют картинки, текст и видео для показа на стриме.</p>
 
-        <div class="changelog-entry">
-          <div class="changelog-date">28 июля 2026</div>
-          <ul>
-            <li>Добавлена веб-панель управления оверлеем</li>
-            <li>Переработана система TTS — настройки роли, лимита длины и субтитров теперь подкоманды <code>!tts</code></li>
-            <li>Добавлена команда <code>!poll</code> для запуска опросов Twitch</li>
-          </ul>
+        <h3 class="sub-title">Доступ к панели</h3>
+        <p><a class="home-btn filled" href="http://roflo-api.ru/mod-panel" target="_blank" rel="noopener noreferrer">Панель модератора</a></p>
+        <p>Открывается после отдельной авторизации специально для панели (не той же самой, что общий вход бота на канал — см. раздел <a href="/auth">Авторизация</a> про неё). Заходить может сам стример или модератор, назначенный командой <code>!leadmod</code>.</p>
+        <p>Не нужно искать эту ссылку самостоятельно каждый раз — команда <code>!overlay</code> в чате пришлёт её вам в личные сообщения вместе с краткой инструкцией, как пользоваться панелью.</p>
+
+        <div class="warn">
+          <div class="warn-title">Внимание</div>
+          <p style="margin-bottom:0;">Если в настройках Twitch заблокированы ЛС от незнакомцев, бот не сможет прислать инструкцию.</p>
         </div>
 
-        <div class="changelog-entry">
-          <div class="changelog-date">28 июля 2026</div>
-          <ul>
-            <li>Добавлена команда <code>!roflobotdisconnect</code> для самостоятельного отключения бота от канала</li>
-            <li>Убрана система цитат и озвучка ВКонтакте</li>
-          </ul>
-        </div>
+        <h3 class="sub-title">Что можно делать в панели</h3>
+        <p>Кнопки <code>+ Текст</code>, <code>+ Медиа</code>, <code>+ Картинка</code> и <code>+ Веб-сайт</code> добавляют на холст новый объект. <code>+ Медиа</code> — это единая кнопка для загрузки прямо с компьютера: она сама распознаёт, фото это или видео, так что искать отдельную кнопку под нужный формат больше не нужно. <code>+ Картинка</code> добавляет изображение по прямой ссылке, а <code>+ Веб-сайт</code> — встроенную веб-страницу (ссылки на YouTube сама превращаются в рабочий вариант, искать embed-версию вручную тоже не нужно).</p>
+        <p>Любой добавленный объект можно перетащить мышкой в любое место холста и изменить его размер, потянув за маркер в нижнем правом углу. Кнопка <code>Синхронизировать</code> отправляет то, что сейчас на холсте, зрителям в OBS; удаление отдельного объекта и кнопка <code>Очистить холст</code> применяются мгновенно, без отдельного нажатия <code>Синхронизировать</code>.</p>
+
+        <h3 class="sub-title">Как добавить в OBS</h3>
+        <ol>
+          <li>Откройте панель модератора (ссылку на неё присылает команда <code>!overlay</code> в личные сообщения) и найдите внутри неё отдельную ссылку специально для OBS — она отличается от адреса самой панели.</li>
+          <li>В OBS нажмите <code>+</code> в списке источников и выберите <strong>«Браузер» (Browser Source)</strong>.</li>
+          <li>Вставьте скопированную ссылку в поле URL.</li>
+          <li>При необходимости задайте ширину и высоту источника — рекомендуется <code>1920×1080</code>, чтобы совпадать с логическим разрешением холста в панели (тогда расположение элементов будет точно совпадать один в один).</li>
+        </ol>
+
+        <h3 class="sub-title">Сброс токена безопасности</h3>
+        <p>Ссылка на оверлей — секретная: если она случайно попала в кадр стрима или засветилась где-то ещё, любой, кто её увидел, сможет управлять вашим оверлеем. На этот случай токен можно сбросить — старая ссылка сразу перестанет работать, а новую нужно будет заново добавить в OBS.</p>
+        <p>Сбросить токен можно двумя способами: кнопкой прямо в панели, либо экстренно, если нужно среагировать мгновенно — чат-командой <code>!overlay reset</code>.</p>
+
+        <h3 class="sub-title">Для модераторов</h3>
+        <p>Обычный доступ в чат-команды и доступ к панели — разные вещи. Чтобы модератор получил доступ к панели управления, его нужно отдельно назначить командой <code>!leadmod [ник модератора]</code> в чате — рядового статуса модератора Twitch для этого недостаточно.</p>
+        <p>Управлять озвучкой из чата может любой модератор — <code>!tts on</code>/<code>!tts off</code> ставит на паузу и возобновляет приём, <code>!tts skip</code> пропускает текущее сообщение, <code>!tts clear</code> очищает всю очередь разом. Общий рубильник всего оверлея (<code>!overlay on</code>/<code>!overlay off</code>) — уже только для модераторов с доступом к панели и стримера.</p>
 
         <div class="page-nav">
-          <a href="/status">← Работа бота</a>
+          <a href="/commands">← Команды</a>
           <span class="spacer"></span>
-          <a href="/">Главная →</a>
+          <a href="/general">Общее →</a>
         </div>
 
     </div>
@@ -206,6 +218,5 @@
 </div>
 
 <script src="../js/script.js"></script>
-<script src="../js/status.js"></script>
 </body>
 </html>

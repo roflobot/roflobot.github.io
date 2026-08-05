@@ -3,12 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RofloBot - Список изменений</title>
+<title>RofloBot - Общее</title>
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/style.css">
-<link rel="stylesheet" href="../css/status.css">
 </head>
 <body>
 
@@ -21,14 +20,14 @@
     <nav class="top-bar-nav">
       <a href="/commands">Команды</a>
       <a href="/overlay">Оверлей и панель</a>
-      <a href="/general">Общее</a>
+      <a href="/general" class="active">Общее</a>
       <a href="/howto">Как подключить?</a>
     </nav>
   </div>
   <div class="top-bar-right">
-    <a class="top-bar-auth active" href="/changelog">Список изменений</a>
+    <a class="top-bar-auth" href="/changelog">Список изменений</a>
     <a class="top-bar-auth" href="/auth">Авторизация</a>
-    <a class="status-badge" href="/status" id="statusBadge" data-state="checking"><span class="pulse"></span><span class="status-text">ПРОВЕРКА СТАТУСА…</span></a>
+    <a class="status-badge" href="/status"><span class="pulse"></span><span class="status-text">ОНЛАЙН · ВСЁ РАБОТАЕТ</span></a>
     <button class="theme-btn" id="themeBtn" title="Переключить тему" aria-label="Переключить тему">🌙</button>
   </div>
 </header>
@@ -158,12 +157,12 @@
 
       <a class="plain-link" href="/overlay">Оверлей и панель</a>
       <hr>
-      <a class="plain-link" href="/general">Общее</a>
+      <a class="plain-link active" href="/general">Общее</a>
       <a class="plain-link" href="/howto">Как подключить?</a>
       <a class="plain-link" href="/auth">Авторизация</a>
       <hr>
       <a class="plain-link" href="/status">Работа бота</a>
-      <a class="plain-link active" href="/changelog">Список изменений</a>
+      <a class="plain-link" href="/changelog">Список изменений</a>
     </div>
 
     <div class="sidebar-footer">
@@ -175,30 +174,24 @@
   <main>
     <div class="content-inner">
 
-        <h1 class="page-title">Список изменений</h1>
-        <p class="page-lead">История обновлений функционала бота — что нового появляется и что меняется.</p>
+        <h1 class="page-title">Общее</h1>
+        <p class="page-lead">Базовые служебные команды и формат времени, которым пользуются другие команды бота.</p>
 
-        <div class="changelog-entry">
-          <div class="changelog-date">28 июля 2026</div>
-          <ul>
-            <li>Добавлена веб-панель управления оверлеем</li>
-            <li>Переработана система TTS — настройки роли, лимита длины и субтитров теперь подкоманды <code>!tts</code></li>
-            <li>Добавлена команда <code>!poll</code> для запуска опросов Twitch</li>
-          </ul>
-        </div>
-
-        <div class="changelog-entry">
-          <div class="changelog-date">28 июля 2026</div>
-          <ul>
-            <li>Добавлена команда <code>!roflobotdisconnect</code> для самостоятельного отключения бота от канала</li>
-            <li>Убрана система цитат и озвучка ВКонтакте</li>
-          </ul>
-        </div>
+        <h3 class="sub-title">Продолжительность</h3>
+        <p>Там, где команда просит указать длительность (таймауты, временные правила), формат такой:</p>
+        <table class="duration-table">
+          <tr><th>Пример</th><th>Значит</th></tr>
+          <tr><td><code>2</code> или <code>2s</code></td><td>2 секунды</td></tr>
+          <tr><td><code>2m</code></td><td>2 минуты</td></tr>
+          <tr><td><code>2h</code></td><td>2 часа</td></tr>
+          <tr><td><code>2d</code></td><td>2 дня</td></tr>
+          <tr><td><code>2w</code></td><td>2 недели</td></tr>
+        </table>
 
         <div class="page-nav">
-          <a href="/status">← Работа бота</a>
+          <a href="/overlay">← Оверлей и панель</a>
           <span class="spacer"></span>
-          <a href="/">Главная →</a>
+          <a href="/howto">Как подключить? →</a>
         </div>
 
     </div>
@@ -206,6 +199,5 @@
 </div>
 
 <script src="../js/script.js"></script>
-<script src="../js/status.js"></script>
 </body>
 </html>
