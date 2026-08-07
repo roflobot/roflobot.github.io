@@ -76,4 +76,46 @@
         var current = document.documentElement.getAttribute('data-theme') || 'dark';
         applyTheme(current === 'dark' ? 'light' : 'dark');
     });
+
+    /* Статус бэкенда бота */
+    var STATUS_URL = 'https://roflo-api.ru/api/status';
+    var CHECK_INTERVAL_MS = 30000;
+    var FETCH_TIMEOUT_MS = 8000;
+    var failCount = 0;
+
+    var badge = document.getElementById('statusBadge');
+    var badgeText = badge ? badge.querySelector('.status-text') : null;
+
+    function renderStatus(state, text) {
+        if (!badge || !badgeText) return;
+        badge.dataset.state = state;
+        badgeText.textContent = text;
+    }
+
+    function checkStatus() {
+        var controller = new AbortController();
+        var timeoutId = setTimeout(function () { controller.abort(); }, FETCH_TIMEOUT_MS);
+
+        fetch(STATUS_URL, { signal: controller.signal, cache: 'no-store' })
+            .then(function (response) {
+                clearTimeout(timeoutId);
+                if (!response.ok) throw new Error('HTTP ' + response.status);
+
+                failCount = 0;
+                renderStatus('online', 'ОНЛАЙН • ВСЁ РАБОТАЕТ');
+            })
+            .catch(function () {
+                clearTimeout(timeoutId);
+                failCount += 1;
+
+                if (failCount === 1) {
+                    renderStatus('maintenance', 'ОФФЛАЙН • ОБСЛУЖИВАНИЕ');
+                } else {
+                    renderStatus('down', 'ОФФЛАЙН • ТЕХНИЧЕСКИЕ НЕПОЛАДКИ');
+                }
+            });
+    }
+
+    checkStatus();
+    setInterval(checkStatus, CHECK_INTERVAL_MS);
 })();
