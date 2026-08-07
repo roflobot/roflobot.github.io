@@ -231,7 +231,7 @@ code, kbd {
 .tree-cmds li a:hover, .tree-cmds li a.active-link { background: rgba(255,255,255,0.05); color: var(--accent-pink); text-decoration: none; }
 
 .sidebar-footer { padding: 14px 20px; border-top: 1px solid var(--border); flex-shrink: 0; }
-.sidebar-author { display: block; font-weight: 600; font-size: 13.5px; color: var(--accent-pink); text-decoration: none; }
+.sidebar-author { display: block; margin-top: 16px; font-weight: 600; font-size: 13.5px; color: var(--accent-pink); text-decoration: none; }
 .sidebar-author:hover { text-decoration: underline; }
 .sidebar-beta {
   margin-top: 10px;
