@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/status.css">
 </head>
 <body>
 
@@ -229,35 +230,13 @@
             <li><code>!tts length [10-500]</code> — лимит символов озвучиваемого сообщения, по умолчанию <strong>150</strong>.<span class="access">Только стример</span></li>
             <li><code>!tts caption [on|off]</code> — показывать ли текст сообщения на экране поверх звука.<span class="access">Только стример</span></li>
           </ul>
-
-          <p class="section-lead" style="margin-top:20px;">Модерация озвучки — точечное управление тем, кого касается TTS.</p>
-
-          <p><strong>Описание:</strong> <code>!tts ban</code> / <code>!tts unban</code> — блокировка конкретного зрителя от озвучки по нику, независимо от роли, VIP-статуса или whitelist.</p>
-          <code class="syntax">!tts ban [ник]</code>
-          <code class="syntax">!tts unban [ник]</code>
-          <p><strong>Нюансы работы:</strong> проверка бана идёт первой в цепочке — раньше ролей и whitelist, поэтому забаненный не озвучивается ни при каких условиях. Стример и супер-админы иммунны к бану. Без аргумента — текущий список забаненных, успешное выполнение проходит без сообщения в чат.</p>
-          <p><strong>Примеры:</strong> <code>!tts ban toxicviewer</code> · <code>!tts unban toxicviewer</code> · <code>!tts ban</code></p>
-
-          <p><strong>Описание:</strong> <code>!tts permit</code> / <code>!tts unpermit</code> — точечный доступ к озвучке для конкретного зрителя в обход общих ролевых ограничений.</p>
-          <code class="syntax">!tts permit [ник]</code>
-          <code class="syntax">!tts unpermit [ник]</code>
-          <p><strong>Нюансы работы:</strong> проверяется после бана, но до общих ролей — работает, даже если список разрешённых ролей полностью пуст. Бан приоритетнее: забаненного permit не спасает. Без аргумента — список текущих разрешённых.</p>
-          <p><strong>Примеры:</strong> <code>!tts permit newbie123</code> · <code>!tts unpermit newbie123</code> · <code>!tts permit</code></p>
-
-          <p><strong>Описание:</strong> <code>!tts banword</code> / <code>!tts unbanword</code> — локальный список слов и фраз, при совпадении с которыми сообщение вообще не озвучивается.</p>
-          <code class="syntax">!tts banword [слово или фраза]</code>
-          <code class="syntax">!tts unbanword [слово или фраза]</code>
-          <p><strong>Нюансы работы:</strong> отдельно от общего антиспам-фильтра чата. Проверка идёт до обрезки текста по лимиту длины — при совпадении озвучка не запускается вообще. Регистронезависимо, совпадение по началу слова. Принимает многословные фразы, применяется без перезапуска бота. Без аргумента — список текущих.</p>
-          <p><strong>Примеры:</strong> <code>!tts banword плохоеслово</code> · <code>!tts banword купи подписку</code> · <code>!tts unbanword плохоеслово</code></p>
         </div>
 
         <div class="cmd" id="cmd-voice">
           <span class="cmd-name">!voice</span>
-          <p><strong>Описание:</strong> личный голос для озвучки — свой у каждого зрителя. Без аргумента — показывает ваш текущий голос.</p>
+          <p>Личный голос для озвучки — свой у каждого зрителя. Без аргумента — показывает ваш текущий голос.</p>
           <code class="syntax">!voice [имя голоса]</code>
-          <code class="syntax">!voice list</code>
-          <p><strong>Нюансы работы:</strong> голосов — 13, в трёх группах: базовые русские (<code>dmitry</code>, <code>svetlana</code>), производные «персонажи» на тех же двух голосах с изменённым тоном и скоростью, и иностранные акцентные (<code>brian</code>, <code>emma</code>, <code>remy</code>, <code>seraphina</code>, <code>florian</code>, <code>giuseppe</code>) — настоящие многоязычные голоса Microsoft с принудительно заданным русским языком озвучки, поэтому кириллицу они читают со своим настоящим акцентом, а не имитацией. Актуальный список ключей — по команде <code>!voice list</code>.</p>
-          <p><strong>Примеры:</strong> <code>!voice list</code> · <code>!voice demon</code> · <code>!voice brian</code></p>
+          <p><code>!voice list</code> — полный список голосов на выбор: <code>dmitry</code>, <code>svetlana</code>, <code>anime</code>, <code>german</code>.</p>
           <span class="access">Доступно всем</span>
         </div>
 
@@ -545,5 +524,6 @@
 </div>
 
 <script src="../js/script.js"></script>
+<script src="../js/status.js"></script>
 </body>
 </html>
