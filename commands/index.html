@@ -8,7 +8,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/style.css">
-<link rel="stylesheet" href="../css/status.css">
 </head>
 <body>
 
@@ -223,12 +222,15 @@
           <span class="cmd-name">!tts</span>
           <p>Главная команда управления озвучкой. Без аргументов — справка с действиями, доступными именно вам.</p>
           <ul>
-            <li><code>!tts on</code> / <code>!tts off</code> — пауза и возобновление приёма. На паузе сообщения не пропадают, а ждут своей очереди и звучат по порядку после возобновления.</li>
+            <li><code>!tts on / off</code> — пауза и возобновление приёма. На паузе сообщения не пропадают, а ждут своей очереди и звучат по порядку после возобновления.</li>
             <li><code>!tts skip</code> — прервать то, что звучит сейчас, и запустить следующее.</li>
             <li><code>!tts clear</code> — прервать текущее и полностью очистить очередь.</li>
             <li><code>!tts role [add|remove] [vip|mod|sub|all]</code> — кому вообще разрешена озвучка.<span class="access">Только стример</span></li>
             <li><code>!tts length [10-500]</code> — лимит символов озвучиваемого сообщения, по умолчанию <strong>150</strong>.<span class="access">Только стример</span></li>
             <li><code>!tts caption [on|off]</code> — показывать ли текст сообщения на экране поверх звука.<span class="access">Только стример</span></li>
+            <li><code>!tts ban / unban [ник]</code> — блокирует зрителя от озвучки по нику независимо от роли и whitelist; без аргумента — список забаненных.</li>
+            <li><code>!tts permit / unpermit [ник]</code> — даёт зрителю доступ к озвучке в обход общих ролевых ограничений; без аргумента — список разрешённых.</li>
+            <li><code>!tts banword / unbanword [слово или фраза]</code> — блокирует озвучку сообщений с этим словом или фразой; без аргумента — список забаненных слов.</li>
           </ul>
         </div>
 
@@ -236,7 +238,7 @@
           <span class="cmd-name">!voice</span>
           <p>Личный голос для озвучки — свой у каждого зрителя. Без аргумента — показывает ваш текущий голос.</p>
           <code class="syntax">!voice [имя голоса]</code>
-          <p><code>!voice list</code> — полный список голосов на выбор: <code>dmitry</code>, <code>svetlana</code>, <code>anime</code>, <code>german</code>.</p>
+          <p><code>!voice list</code> — полный список голосов на выбор, теперь их 13: русские, «персонажи» и европейские, читающие кириллицу со своим акцентом.</p>
           <span class="access">Доступно всем</span>
         </div>
 
@@ -261,7 +263,7 @@
         </div>
 
         <div class="cmd" id="cmd-overlay-onoff">
-          <span class="cmd-name">!overlay on <span class="alias">/ !overlay off</span></span>
+          <span class="cmd-name">!overlay on <span class="alias">/ off</span></span>
           <p>Общий рубильник для всего оверлея разом — и озвучки, и картинок с видео.</p>
           <span class="access">Стример и модераторы с доступом к панели</span>
         </div>
@@ -524,6 +526,5 @@
 </div>
 
 <script src="../js/script.js"></script>
-<script src="../js/status.js"></script>
 </body>
 </html>
