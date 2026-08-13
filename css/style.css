@@ -421,13 +421,27 @@ p.section-lead { color: var(--text-muted); margin-bottom: 20px; font-size: 14px;
    Каталог голосов — добавлено для commands.html (ссылка) и voices.html
    ========================================================================== */
 
-/* --- Минималистичная ссылка «Список голосов» внутри описания !voice --- */
+/* --- Кнопка-бейдж «Список голосов» внутри описания !voice --- */
 .voices-link {
-  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 12px;
+  margin: 0 1px;
+  border: 1px solid var(--accent-pink);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--accent-pink) 12%, transparent);
   color: var(--accent-pink);
+  font-weight: 600;
+  font-size: 13.5px;
   white-space: nowrap;
+  vertical-align: middle;
+  transition: background 0.15s ease, transform 0.15s ease;
 }
-.voices-link:hover { text-decoration: underline; }
+.voices-link:hover {
+  background: color-mix(in srgb, var(--accent-pink) 22%, transparent);
+  transform: translateY(-1px);
+  text-decoration: none;
+}
 
 /* --- Каталог голосов (voices.html): два главных раздела --- */
 .voices-section {
