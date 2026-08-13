@@ -416,3 +416,91 @@ p.section-lead { color: var(--text-muted); margin-bottom: 20px; font-size: 14px;
   border-color: var(--accent-pink);
   text-decoration: none;
 }
+
+/* ==========================================================================
+   Каталог голосов — добавлено для commands.html (CTA-кнопка) и voices.html
+   ========================================================================== */
+
+/* --- CTA-кнопка «Список голосов» внутри блока !voice на странице команд --- */
+.voices-cta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 14px 0 4px;
+  padding: 14px 18px;
+  border-radius: 8px;
+  border: 1px solid var(--accent-pink-dim);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent-pink) 12%, transparent), color-mix(in srgb, var(--accent-green) 8%, transparent));
+  color: var(--text-primary);
+  transition: border-color 0.15s ease, transform 0.15s ease, background 0.15s ease;
+}
+.voices-cta:hover {
+  border-color: var(--accent-pink);
+  transform: translateY(-1px);
+  text-decoration: none;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent-pink) 18%, transparent), color-mix(in srgb, var(--accent-green) 12%, transparent));
+}
+.voices-cta-icon { font-size: 22px; line-height: 1; flex-shrink: 0; }
+.voices-cta-text { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
+.voices-cta-text strong { font-size: 14.5px; color: var(--accent-pink); }
+.voices-cta-text span { font-size: 12.5px; color: var(--text-muted); }
+.voices-cta-arrow { font-size: 18px; color: var(--accent-pink); flex-shrink: 0; transition: transform 0.15s ease; }
+.voices-cta:hover .voices-cta-arrow { transform: translateX(3px); }
+
+/* --- Каталог голосов (voices.html): два главных раздела --- */
+.voices-section {
+  margin-top: 40px;
+  padding: 26px 26px 6px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+.voices-section:first-of-type { margin-top: 0; }
+.voices-section > h2.section-title { margin-top: 0; }
+
+.voices-group { margin-bottom: 26px; }
+.voices-group:last-child { margin-bottom: 0; }
+
+.voices-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.voice-card {
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: var(--note-bg);
+  border: 1px solid var(--border);
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+.voice-card:hover { border-color: var(--accent-pink-dim); transform: translateY(-2px); }
+
+.voice-name {
+  display: block;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 14.5px;
+  color: var(--accent-pink);
+}
+.voice-tag {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: var(--code-bg);
+  border-radius: 100px;
+  padding: 2px 10px;
+}
+.voice-desc {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  font-style: italic;
+  color: var(--text-faint);
+}
+
+@media (max-width: 480px) {
+  .voices-section { padding: 20px 16px 4px; }
+  .voices-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+}
