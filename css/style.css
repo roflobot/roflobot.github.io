@@ -286,7 +286,10 @@ h2.section-title {
   border-bottom: 1px solid var(--border);
 }
 h2.section-title:first-of-type { margin-top: 0; }
-h3.sub-title { font-size: 15.5px; font-weight: 600; margin: 22px 0 10px; }
+h3.sub-title {
+  font-size: 15.5px; font-weight: 600; margin: 22px 0 10px; padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
 p.section-lead { color: var(--text-muted); margin-bottom: 20px; font-size: 14px; }
 .content-inner p { margin-bottom: 12px; }
 .prose-page p { margin-bottom: 20px; line-height: 1.75; }
@@ -456,14 +459,23 @@ p.section-lead { color: var(--text-muted); margin-bottom: 20px; font-size: 14px;
 
 .voices-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
 }
 
+/* Grid, не flex — так имя/тег могут переноситься на свою строку каждый (см. voice-name/voice-tag
+   ниже), а кнопка "Прослушать" остаётся одной ячейкой, растянутой на обе строки, без привязки к
+   порядку элементов в разметке. Раньше здесь был flex с ellipsis — при длинных id (например,
+   "phantom_assassin_arcana_dota_2") имя обрезалось текстом "...", и скопировать его целиком было
+   нельзя (по прямому запросу это исправлено — имя всегда видно полностью, перенос по словам вместо
+   обрезки, плюс клик по имени копирует его, см. copyVoiceName ниже). */
 .voice-card {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
   align-items: center;
-  gap: 8px;
+  column-gap: 8px;
+  row-gap: 3px;
   padding: 10px 12px;
   border-radius: 8px;
   background: var(--note-bg);
@@ -473,34 +485,41 @@ p.section-lead { color: var(--text-muted); margin-bottom: 20px; font-size: 14px;
 .voice-card:hover { border-color: var(--accent-pink-dim); transform: translateY(-2px); }
 
 .voice-name {
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
   font-family: var(--font-mono);
   font-weight: 600;
   font-size: 14.5px;
   color: var(--accent-pink);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  overflow-wrap: anywhere;
+  cursor: pointer;
 }
+.voice-name:hover { text-decoration: underline; }
+.voice-name.copied { color: var(--accent-green); }
+
 .voice-tag {
+  grid-column: 1;
+  grid-row: 2;
+  justify-self: start;
+  max-width: 100%;
   font-size: 11.5px;
   font-weight: 500;
   color: var(--text-muted);
   background: var(--code-bg);
   border-radius: 100px;
   padding: 2px 10px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 /* Кнопка "Прослушать" — играет локальный сэмпл samples/<speaker>.mp3 (см. voices/index.html,
    playSample(), и scripts/generate_samples.js в backend-репозитории, который эти файлы готовит
-   заранее). Прижата вправо, тег/имя сжимаются первыми (min-width:0 на .voice-tag), сама кнопка
-   в размере не участвует (flex:none). */
+   заранее). Занимает вторую колонку, растянута на обе строки грида (имя+тег), центрирована по
+   вертикали через align-self. */
 .voice-play {
-  margin-left: auto;
-  flex: none;
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: center;
   width: 26px;
   height: 26px;
   border-radius: 50%;
@@ -523,5 +542,5 @@ p.section-lead { color: var(--text-muted); margin-bottom: 20px; font-size: 14px;
 
 @media (max-width: 480px) {
   .voices-section { padding: 20px 16px 4px; }
-  .voices-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+  .voices-grid { grid-template-columns: repeat(2, 1fr); }
 }
