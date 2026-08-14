@@ -161,17 +161,17 @@
     <div class="content-inner">
 
         <h1 class="page-title">Список голосов</h1>
-        <p class="page-lead">Полный каталог голосов для команды <code>!voice</code> — стандартные голоса и голоса внешнего сервиса /N/TTS, аккуратно сгруппированные по языку и типу.</p>
+        <p class="page-lead">Полный каталог голосов для команды <code>!voice</code> — стандартные голоса и Нейроголоса, аккуратно сгруппированные по языку и категории.</p>
 
         <div class="note">
-          <strong>Как использовать:</strong> отправьте в чат <code>!voice [имя]</code>, где «имя» — один из голосов ниже (например, <code>!voice dmitry</code>). Тег в скобках рядом с именем — язык, акцент или тип голоса.
+          <strong>Как использовать:</strong> отправьте в чат <code>!voice [имя]</code>, где «имя» — один из голосов ниже (например, <code>!voice dmitry</code>). Тег рядом с именем — язык/пол или категория голоса.
         </div>
 
         <div class="toc">
           <div class="toc-title">Содержание</div>
           <ul>
             <li><a href="#sec-standard">Стандартные голоса</a></li>
-            <li><a href="#sec-ntts">/N/TTS</a></li>
+            <li><a href="#sec-neuro">Нейроголоса</a></li>
           </ul>
         </div>
 
@@ -185,10 +185,12 @@
               <div class="voice-card">
                 <span class="voice-name">dmitry</span>
                 <span class="voice-tag">(рус., муж.)</span>
+                <button type="button" class="voice-play" data-speaker="dmitry" title="Прослушать" aria-label="Прослушать">▶</button>
               </div>
               <div class="voice-card">
                 <span class="voice-name">svetlana</span>
                 <span class="voice-tag">(рус., жен.)</span>
+                <button type="button" class="voice-play" data-speaker="svetlana" title="Прослушать" aria-label="Прослушать">▶</button>
               </div>
             </div>
           </div>
@@ -199,22 +201,27 @@
               <div class="voice-card">
                 <span class="voice-name">squeaky</span>
                 <span class="voice-tag">(высокий)</span>
+                <button type="button" class="voice-play" data-speaker="squeaky" title="Прослушать" aria-label="Прослушать">▶</button>
               </div>
               <div class="voice-card">
                 <span class="voice-name">bass</span>
                 <span class="voice-tag">(бас)</span>
+                <button type="button" class="voice-play" data-speaker="bass" title="Прослушать" aria-label="Прослушать">▶</button>
               </div>
               <div class="voice-card">
                 <span class="voice-name">fast</span>
                 <span class="voice-tag">(быстрый)</span>
+                <button type="button" class="voice-play" data-speaker="fast" title="Прослушать" aria-label="Прослушать">▶</button>
               </div>
               <div class="voice-card">
                 <span class="voice-name">slow</span>
                 <span class="voice-tag">(медленный)</span>
+                <button type="button" class="voice-play" data-speaker="slow" title="Прослушать" aria-label="Прослушать">▶</button>
               </div>
               <div class="voice-card">
                 <span class="voice-name">demon</span>
                 <span class="voice-tag">(низкий)</span>
+                <button type="button" class="voice-play" data-speaker="demon" title="Прослушать" aria-label="Прослушать">▶</button>
               </div>
             </div>
           </div>
@@ -225,10 +232,12 @@
               <div class="voice-card">
                 <span class="voice-name">brian</span>
                 <span class="voice-tag">(англ., муж.)</span>
+                <button type="button" class="voice-play" data-speaker="brian" title="Прослушать" aria-label="Прослушать">▶</button>
               </div>
               <div class="voice-card">
                 <span class="voice-name">emma</span>
                 <span class="voice-tag">(англ., жен.)</span>
+                <button type="button" class="voice-play" data-speaker="emma" title="Прослушать" aria-label="Прослушать">▶</button>
               </div>
             </div>
           </div>
@@ -239,14 +248,17 @@
               <div class="voice-card">
                 <span class="voice-name">florian</span>
                 <span class="voice-tag">(нем., муж.)</span>
+                <button type="button" class="voice-play" data-speaker="florian" title="Прослушать" aria-label="Прослушать">▶</button>
               </div>
               <div class="voice-card">
                 <span class="voice-name">german</span>
                 <span class="voice-tag">(нем., муж.)</span>
+                <button type="button" class="voice-play" data-speaker="german" title="Прослушать" aria-label="Прослушать">▶</button>
               </div>
               <div class="voice-card">
                 <span class="voice-name">seraphina</span>
                 <span class="voice-tag">(нем., жен.)</span>
+                <button type="button" class="voice-play" data-speaker="seraphina" title="Прослушать" aria-label="Прослушать">▶</button>
               </div>
             </div>
           </div>
@@ -257,27 +269,23 @@
               <div class="voice-card">
                 <span class="voice-name">remy</span>
                 <span class="voice-tag">(франц., муж.)</span>
+                <button type="button" class="voice-play" data-speaker="remy" title="Прослушать" aria-label="Прослушать">▶</button>
               </div>
               <div class="voice-card">
                 <span class="voice-name">giuseppe</span>
                 <span class="voice-tag">(итал., муж.)</span>
+                <button type="button" class="voice-play" data-speaker="giuseppe" title="Прослушать" aria-label="Прослушать">▶</button>
               </div>
             </div>
           </div>
         </section>
 
-        <section class="voices-section" id="sec-ntts">
-          <h2 class="section-title">/N/TTS</h2>
-          <p class="section-lead">Внешний сервис синтеза речи — вызываются точно так же, командой <code>!voice [имя]</code>. Список пока небольшой, новые голоса добавляются по мере надобности.</p>
+        <section class="voices-section" id="sec-neuro">
+          <h2 class="section-title">Нейроголоса</h2>
+          <p class="section-lead">Внешний сервис синтеза речи — вызываются точно так же, командой <code>!voice [имя]</code>. Список загружается напрямую с сервиса при открытии страницы, поэтому всегда актуален.</p>
 
-          <div class="voices-group">
-            <h3 class="sub-title">Голоса</h3>
-            <div class="voices-grid">
-              <div class="voice-card">
-                <span class="voice-name">aaron</span>
-                <span class="voice-tag">(N.TTS)</span>
-              </div>
-            </div>
+          <div id="neuroVoicesContainer">
+            <p class="voices-loading">Загружаю список голосов…</p>
           </div>
         </section>
 
@@ -292,5 +300,147 @@
 </div>
 
 <script src="../js/script.js"></script>
+<script>
+(function () {
+  // Публичный эндпоинт /N/TTS — без авторизации (проверено прямым запросом 15.08.2026), поэтому
+  // безопасно дёргать напрямую с клиента, без прокси через бота и без риска показать чей-то ключ.
+  var NEURO_SPEAKERS_URL = 'https://ntts.fdev.team/api/v1/tts/speakers';
+  var container = document.getElementById('neuroVoicesContainer');
+
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function genderTag(gender) {
+    if (gender === 'female') return 'жен.';
+    if (gender === 'male') return 'муж.';
+    return '';
+  }
+
+  // --- Воспроизведение локальных сэмплов (samples/<speakerId>.mp3, см. scripts/generate_samples.js
+  // в backend-репозитории) — общее и для статичных карточек "Стандартные голоса", и для
+  // карточек Нейроголосов, отрисованных ниже динамически. Играет строго один сэмпл одновременно:
+  // новый клик останавливает предыдущий.
+  var currentAudio = null;
+  var currentButton = null;
+
+  function stopCurrentPlayback() {
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+    }
+    if (currentButton) {
+      currentButton.classList.remove('is-playing');
+      currentButton.textContent = '▶';
+      currentButton.title = 'Прослушать';
+    }
+    currentAudio = null;
+    currentButton = null;
+  }
+
+  function playSample(speakerId, button) {
+    // Повторный клик по УЖЕ играющей кнопке — просто останавливаем (toggle), не запускаем заново.
+    if (currentButton === button) {
+      stopCurrentPlayback();
+      return;
+    }
+    stopCurrentPlayback(); // одновременно играет только один сэмпл
+
+    var audio = new Audio('./samples/' + encodeURIComponent(speakerId) + '.mp3');
+    audio.addEventListener('ended', stopCurrentPlayback);
+    audio.addEventListener('error', function () {
+      var failedButton = button;
+      stopCurrentPlayback();
+      failedButton.title = 'Сэмпл ещё не сгенерирован';
+    });
+
+    var playPromise = audio.play();
+    if (playPromise && playPromise.catch) {
+      playPromise.catch(function () { stopCurrentPlayback(); });
+    }
+
+    currentAudio = audio;
+    currentButton = button;
+    button.classList.add('is-playing');
+    button.textContent = '⏸';
+    button.title = 'Остановить';
+  }
+
+  // Делегирование на весь документ — работает и для уже присутствующих в разметке статичных
+  // карточек, и для карточек Нейроголосов, которые появятся позже (после ответа /speakers),
+  // без необходимости перевешивать обработчики при каждом (пере)рендере.
+  document.addEventListener('click', function (e) {
+    var button = e.target.closest('.voice-play');
+    if (!button) return;
+    playSample(button.getAttribute('data-speaker'), button);
+  });
+
+  // Реальный ответ API — { voices: [{name, description, source, gender, speakers: [...]}],
+  // custom_voices: [...] } (проверено запросом к живому API, не по документации на слово).
+  // source — категория голоса ("Media", "Portal 2", "Dota 2" и т.п.), одна "группа" может
+  // содержать НЕСКОЛЬКО технических speaker-id — на каждый рисуем свою карточку, потому что
+  // именно speaker-id и есть то, что реально принимает !voice.
+  function renderNeuroVoices(data) {
+    var groups = [].concat(
+      Array.isArray(data.voices) ? data.voices : [],
+      Array.isArray(data.custom_voices) ? data.custom_voices : []
+    );
+
+    if (!groups.length) {
+      container.innerHTML = '<p class="voices-error">Список голосов пуст.</p>';
+      return;
+    }
+
+    var byCategory = new Map();
+    groups.forEach(function (voice) {
+      var category = voice.source || 'Другое';
+      if (!byCategory.has(category)) byCategory.set(category, []);
+      byCategory.get(category).push(voice);
+    });
+
+    var categories = Array.from(byCategory.keys()).sort(function (a, b) {
+      return a.localeCompare(b, 'ru');
+    });
+
+    var html = categories.map(function (category) {
+      var cards = byCategory.get(category).map(function (voice) {
+        var speakerIds = (Array.isArray(voice.speakers) && voice.speakers.length) ? voice.speakers : [];
+        return speakerIds.map(function (speakerId) {
+          var tag = [voice.name, genderTag(voice.gender)].filter(Boolean).join(' · ');
+          // Локальный сэмпл — генерируется заранее скриптом scripts/generate_samples.js
+          // (в backend-репозитории) в samples/<speakerId>.mp3, сайт его просто проигрывает.
+          // Если сэмпл ещё не сгенерирован для конкретного голоса — playSample() ниже поймает
+          // ошибку загрузки аудио и покажет это прямо на кнопке, а не сломает всю страницу.
+          return '<div class="voice-card">' +
+            '<span class="voice-name">' + escapeHtml(speakerId) + '</span>' +
+            '<span class="voice-tag">' + escapeHtml(tag) + '</span>' +
+            '<button type="button" class="voice-play" data-speaker="' + escapeHtml(speakerId) + '" title="Прослушать" aria-label="Прослушать">▶</button>' +
+            '</div>';
+        }).join('');
+      }).join('');
+
+      return '<div class="voices-group">' +
+        '<h3 class="sub-title">' + escapeHtml(category) + '</h3>' +
+        '<div class="voices-grid">' + cards + '</div>' +
+        '</div>';
+    }).join('');
+
+    container.innerHTML = html;
+  }
+
+  fetch(NEURO_SPEAKERS_URL)
+    .then(function (res) {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    })
+    .then(renderNeuroVoices)
+    .catch(function (err) {
+      container.innerHTML = '<p class="voices-error">Не удалось загрузить список нейроголосов (' +
+        escapeHtml(err.message) + '). Попробуйте обновить страницу.</p>';
+    });
+})();
+</script>
 </body>
 </html>
