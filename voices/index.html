@@ -164,7 +164,7 @@
         <p class="page-lead">Полный каталог голосов для команды <code>!voice</code> — стандартные голоса и Нейроголоса, аккуратно сгруппированные по языку и категории.</p>
 
         <div class="note">
-          <strong>Как использовать:</strong> отправьте в чат <code>!voice [имя]</code>, где «имя» — один из голосов ниже (например, <code>!voice dmitry</code>). Тег рядом с именем — язык/пол или категория голоса.
+          <strong>Как использовать:</strong> отправьте в чат <code>!voice [имя]</code>, где «имя» — один из голосов ниже (например, <code>!voice dmitry</code>). Тег рядом с именем — язык/пол или категория голоса. Нажмите на имя голоса, чтобы скопировать его.
         </div>
 
         <div class="toc">
@@ -368,13 +368,55 @@
     button.title = 'Остановить';
   }
 
+  // Клик по имени голоса — копирует его целиком в буфер обмена (по прямому запросу: у длинных
+  // технических id вроде "phantom_assassin_arcana_dota_2" имя визуально может переноситься на
+  // несколько строк, но .textContent у span'а всегда содержит полное имя независимо от переноса,
+  // так что копируется именно оно). Основной путь — Clipboard API (доступен, т.к. GitHub Pages
+  // отдаёт страницу по HTTPS — обязательное условие для navigator.clipboard); textarea+execCommand
+  // ниже — запасной вариант для браузеров без Clipboard API.
+  function legacyCopy(text, done) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try { document.execCommand('copy'); done(); } catch (e) { /* тихо — не критично, имя всё равно видно на странице */ }
+    document.body.removeChild(ta);
+  }
+
+  function copyVoiceName(el) {
+    var text = el.textContent;
+    var done = function () {
+      el.classList.add('copied');
+      setTimeout(function () { el.classList.remove('copied'); }, 1200);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(function () { legacyCopy(text, done); });
+    } else {
+      legacyCopy(text, done);
+    }
+  }
+
+  // Статичные карточки ("Стандартные голоса") уже есть в разметке к моменту выполнения этого
+  // скрипта (он подключён в конце body) — проставляем подсказку один раз здесь. Карточки
+  // Нейроголосов получают ту же подсказку прямо в шаблоне при рендере, см. renderNeuroVoices ниже.
+  document.querySelectorAll('#sec-standard .voice-name').forEach(function (el) {
+    el.title = 'Нажмите, чтобы скопировать';
+  });
+
   // Делегирование на весь документ — работает и для уже присутствующих в разметке статичных
   // карточек, и для карточек Нейроголосов, которые появятся позже (после ответа /speakers),
   // без необходимости перевешивать обработчики при каждом (пере)рендере.
   document.addEventListener('click', function (e) {
-    var button = e.target.closest('.voice-play');
-    if (!button) return;
-    playSample(button.getAttribute('data-speaker'), button);
+    var playButton = e.target.closest('.voice-play');
+    if (playButton) {
+      playSample(playButton.getAttribute('data-speaker'), playButton);
+      return;
+    }
+    var nameEl = e.target.closest('.voice-name');
+    if (nameEl) copyVoiceName(nameEl);
   });
 
   // Реальный ответ API — { voices: [{name, description, source, gender, speakers: [...]}],
@@ -414,7 +456,7 @@
           // Если сэмпл ещё не сгенерирован для конкретного голоса — playSample() ниже поймает
           // ошибку загрузки аудио и покажет это прямо на кнопке, а не сломает всю страницу.
           return '<div class="voice-card">' +
-            '<span class="voice-name">' + escapeHtml(speakerId) + '</span>' +
+            '<span class="voice-name" title="Нажмите, чтобы скопировать">' + escapeHtml(speakerId) + '</span>' +
             '<span class="voice-tag">' + escapeHtml(tag) + '</span>' +
             '<button type="button" class="voice-play" data-speaker="' + escapeHtml(speakerId) + '" title="Прослушать" aria-label="Прослушать">▶</button>' +
             '</div>';
