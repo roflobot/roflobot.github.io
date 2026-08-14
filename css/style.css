@@ -456,12 +456,15 @@ p.section-lead { color: var(--text-muted); margin-bottom: 20px; font-size: 14px;
 
 .voices-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 10px;
 }
 
 .voice-card {
-  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
   border-radius: 8px;
   background: var(--note-bg);
   border: 1px solid var(--border);
@@ -470,22 +473,53 @@ p.section-lead { color: var(--text-muted); margin-bottom: 20px; font-size: 14px;
 .voice-card:hover { border-color: var(--accent-pink-dim); transform: translateY(-2px); }
 
 .voice-name {
-  display: block;
   font-family: var(--font-mono);
   font-weight: 600;
   font-size: 14.5px;
   color: var(--accent-pink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .voice-tag {
-  display: inline-block;
-  margin-top: 6px;
   font-size: 11.5px;
   font-weight: 500;
   color: var(--text-muted);
   background: var(--code-bg);
   border-radius: 100px;
   padding: 2px 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
+
+/* Кнопка "Прослушать" — играет локальный сэмпл samples/<speaker>.mp3 (см. voices/index.html,
+   playSample(), и scripts/generate_samples.js в backend-репозитории, который эти файлы готовит
+   заранее). Прижата вправо, тег/имя сжимаются первыми (min-width:0 на .voice-tag), сама кнопка
+   в размере не участвует (flex:none). */
+.voice-play {
+  margin-left: auto;
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--code-bg);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.voice-play:hover { color: var(--accent-pink); border-color: var(--accent-pink-dim); }
+.voice-play.is-playing { color: var(--accent-green); border-color: var(--accent-green); }
+.voice-play:disabled { cursor: not-allowed; opacity: 0.55; }
+
+.voices-loading, .voices-error { color: var(--text-muted); font-size: 14px; padding: 4px 0 16px; }
+.voices-error { color: var(--warn-border); }
 
 @media (max-width: 480px) {
   .voices-section { padding: 20px 16px 4px; }
