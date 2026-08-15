@@ -158,7 +158,7 @@
   </aside>
 
   <main>
-    <div class="content-inner">
+    <div class="content-inner content-inner--wide">
 
         <h1 class="page-title">Список голосов</h1>
         <p class="page-lead">Полный каталог голосов для команды <code>!voice</code> — стандартные голоса и Нейроголоса, аккуратно сгруппированные по языку и категории.</p>
@@ -166,6 +166,8 @@
         <div class="note">
           <strong>Как использовать:</strong> отправьте в чат <code>!voice [имя]</code>, где «имя» — один из голосов ниже (например, <code>!voice dmitry</code>). Тег рядом с именем — язык/пол или категория голоса. Нажмите на имя голоса, чтобы скопировать его.
         </div>
+
+        <input type="text" id="voiceSearch" class="voice-search" placeholder="Поиск голоса: гладос, скайрим, демон…">
 
         <div class="toc">
           <div class="toc-title">Содержание</div>
@@ -419,6 +421,32 @@
     if (nameEl) copyVoiceName(nameEl);
   });
 
+  // Поиск по всем карточкам (и статичным "Стандартные голоса", и Нейроголосам) — фильтрует по
+  // имени/тегу. querySelectorAll вызывается заново при каждом вводе (не кэшируется), поэтому
+  // работает и для карточек Нейроголосов, которые дорисовываются позже, после ответа /speakers.
+  // Группа (.voices-group, вместе со своим h3-заголовком категории) скрывается целиком, если в
+  // ней не осталось ни одной подходящей карточки — чтобы не висели пустые заголовки категорий.
+  var searchInput = document.getElementById('voiceSearch');
+
+  function normalizeSearch(s) {
+    return String(s).toLowerCase().replace(/ё/g, 'е');
+  }
+
+  function applyVoiceFilter() {
+    var query = normalizeSearch(searchInput.value.trim());
+    document.querySelectorAll('.voices-group').forEach(function (group) {
+      var groupHasMatch = false;
+      group.querySelectorAll('.voice-card').forEach(function (card) {
+        var isMatch = !query || normalizeSearch(card.textContent).indexOf(query) >= 0;
+        card.style.display = isMatch ? '' : 'none';
+        if (isMatch) groupHasMatch = true;
+      });
+      group.style.display = groupHasMatch ? '' : 'none';
+    });
+  }
+
+  searchInput.addEventListener('input', applyVoiceFilter);
+
   // Реальный ответ API — { voices: [{name, description, source, gender, speakers: [...]}],
   // custom_voices: [...] } (проверено запросом к живому API, не по документации на слово).
   // source — категория голоса ("Media", "Portal 2", "Dota 2" и т.п.), одна "группа" может
@@ -470,6 +498,9 @@
     }).join('');
 
     container.innerHTML = html;
+    // На случай, если зритель начал искать ДО того, как подгрузился список Нейроголосов —
+    // применяем текущий запрос сразу к только что отрисованным карточкам.
+    if (searchInput.value.trim()) applyVoiceFilter();
   }
 
   fetch(NEURO_SPEAKERS_URL)
