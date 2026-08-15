@@ -246,6 +246,12 @@ code, kbd {
 /* --- Content / страницы --- */
 main { flex: 1; min-width: 0; }
 .content-inner { max-width: 760px; margin: 0 auto; padding: 40px 48px 60px; }
+/* Расширенная версия — только для страницы «Голоса» (voices/index.html): 3-колоночная сетка
+   карточек голосов в стандартной ширине 760px превращала каждую карточку в узкую полоску, из-за
+   чего длинные id (Dota 2, Hogwarts Legacy...) переносились на много строк. Ширины хватает и на
+   десктопе (280px сайдбар + 1040px здесь укладывается в 1366px и шире), а ниже 920px сайдбар
+   уходит в бургер-меню (см. @media 920px ниже), так что там места ещё больше. */
+.content-inner--wide { max-width: 1040px; }
 
 
 /* --- Главная --- */
@@ -271,6 +277,16 @@ main { flex: 1; min-width: 0; }
 
 .page-title { font-size: 27px; font-weight: 700; margin-bottom: 8px; }
 .page-lead { color: var(--text-muted); margin-bottom: 32px; }
+
+.voice-search {
+  width: 100%; max-width: 420px;
+  padding: 10px 14px; margin-bottom: 24px;
+  border-radius: 10px; border: 1px solid var(--border);
+  background: var(--note-bg); color: var(--text-primary);
+  font-family: var(--font-body); font-size: 14px;
+}
+.voice-search:focus { outline: none; border-color: var(--accent-pink-dim); }
+.voice-search::placeholder { color: var(--text-faint); }
 
 .toc { margin-bottom: 40px; }
 .toc-title { font-weight: 600; margin-bottom: 10px; font-size: 15px; }
@@ -498,17 +514,15 @@ p.section-lead { color: var(--text-muted); margin-bottom: 20px; font-size: 14px;
 .voice-name:hover { text-decoration: underline; }
 .voice-name.copied { color: var(--accent-green); }
 
+/* Раньше был закруглённой "таблеткой" (background+border-radius) — при переносе длинного тега на
+   вторую строку внутри узкой таблетки получалась "коробка в коробке", по прямому запросу это
+   выглядело запутанно. Теперь — просто приглушённый текст второй строкой, без своего фона/рамки. */
 .voice-tag {
   grid-column: 1;
   grid-row: 2;
-  justify-self: start;
-  max-width: 100%;
-  font-size: 11.5px;
+  font-size: 12px;
   font-weight: 500;
   color: var(--text-muted);
-  background: var(--code-bg);
-  border-radius: 100px;
-  padding: 2px 10px;
   overflow-wrap: anywhere;
 }
 
